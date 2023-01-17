@@ -1,0 +1,6 @@
+{
+  "src/**/*.{js,ts,svelte}": [
+    "prettier --plugin-search-dir . --write",
+    "eslint"
+  ]
+}
