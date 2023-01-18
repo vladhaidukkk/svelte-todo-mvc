@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { TodoType } from '$root/types';
+  import { Todo } from '$root/components';
 
   let todos: TodoType[] = [
     {
@@ -10,7 +11,7 @@
     {
       id: crypto.randomUUID(),
       text: 'Todo 2',
-      completed: false,
+      completed: true,
     },
     {
       id: crypto.randomUUID(),
@@ -36,6 +37,15 @@
     }
   }
 
+  function toggleTodo(id: string) {
+    todos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
+  }
+
   function deleteTodo(id: string) {
     todos = todos.filter((todo) => todo.id !== id);
   }
@@ -53,15 +63,7 @@
 
 <ul class="todos">
   {#each todos as todo (todo.id)}
-    <li class="todo">
-      <span>{todo.text}</span>
-      <button
-        type="button"
-        aria-label="Delete todo"
-        class="delete-btn"
-        on:click={() => deleteTodo(todo.id)}>x</button
-      >
-    </li>
+    <Todo {todo} {toggleTodo} {deleteTodo} />
   {/each}
 </ul>
 
@@ -70,22 +72,5 @@
     width: 300px;
     padding: 0;
     list-style: none;
-  }
-
-  .todo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 0;
-    border-bottom: 1px solid;
-  }
-
-  .delete-btn {
-    visibility: hidden;
-    cursor: pointer;
-  }
-
-  .todo:hover .delete-btn {
-    visibility: visible;
   }
 </style>
