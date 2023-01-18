@@ -63,6 +63,13 @@
     todos = todos.filter((todo) => todo.id !== id);
   }
 
+  function toggleCompleted(event: MouseEvent) {
+    const target = event.target as HTMLInputElement;
+    const checked = target.checked;
+
+    todos = todos.map((todo) => ({ ...todo, completed: checked }));
+  }
+
   function clearCompleted() {
     todos = todos.filter((todo) => !todo.completed);
   }
@@ -74,6 +81,11 @@
 
 <main class="wrapper">
   <form on:submit|preventDefault={handleSubmit}>
+    <input
+      type="checkbox"
+      checked={uncompletedTodos === 0}
+      on:click={toggleCompleted}
+    />
     <!-- svelte-ignore a11y-autofocus -->
     <input
       type="text"
