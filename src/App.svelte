@@ -1,6 +1,9 @@
 <script lang="ts">
-  import type { TodoType } from '$root/types';
+  import { TodoFilters, type TodoType } from '$root/types';
   import { Todo } from '$root/components';
+  import { filterTodos, capitalize } from '$root/utils';
+
+  const filters = Object.values(TodoFilters);
 
   let todos: TodoType[] = [
     {
@@ -20,7 +23,9 @@
     },
   ];
   let newTodoText = '';
+  let selectedFilter: TodoFilters = TodoFilters.all;
 
+  $: filteredTodos = filterTodos(todos, selectedFilter);
   $: completedTodos = todos.filter((todo) => todo.completed).length;
   $: uncompletedTodos = todos.filter((todo) => !todo.completed).length;
 
@@ -61,6 +66,10 @@
   function clearCompleted() {
     todos = todos.filter((todo) => !todo.completed);
   }
+
+  function selectFilter(filter: TodoFilters) {
+    selectedFilter = filter;
+  }
 </script>
 
 <main class="wrapper">
@@ -75,7 +84,7 @@
   </form>
 
   <ul class="todos">
-    {#each todos as todo (todo.id)}
+    {#each filteredTodos as todo (todo.id)}
       <Todo {todo} {toggleTodo} {editTodo} {deleteTodo} />
     {/each}
   </ul>
@@ -84,6 +93,18 @@
     <div>
       {uncompletedTodos}
       {uncompletedTodos === 1 ? 'item' : 'items'} left
+    </div>
+    <div class="filters">
+      {#each filters as filter}
+        <button
+          type="button"
+          class="filter"
+          class:filter--active={selectedFilter === filter}
+          on:click={() => selectFilter(filter)}
+        >
+          {capitalize(filter)}
+        </button>
+      {/each}
     </div>
     <button
       type="button"
@@ -98,7 +119,7 @@
 
 <style>
   .wrapper {
-    width: 300px;
+    width: 400px;
   }
 
   .todos {
@@ -110,6 +131,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 5px;
+  }
+
+  .filter {
+    border: 1px solid black;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .filters {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .filter--active {
+    border-color: purple;
   }
 
   .clear-btn {
