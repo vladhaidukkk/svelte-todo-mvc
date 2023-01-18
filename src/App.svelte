@@ -21,6 +21,8 @@
   ];
   let newTodoText = '';
 
+  $: uncompletedTodos = todos.filter((todo) => !todo.completed).length;
+
   function createTodo(text: string) {
     const newTodo: TodoType = {
       id: crypto.randomUUID(),
@@ -71,6 +73,10 @@
     <Todo {todo} {toggleTodo} {editTodo} {deleteTodo} />
   {/each}
 </ul>
+
+<div>
+  <div>{uncompletedTodos} {uncompletedTodos === 1 ? 'item' : 'items'} left</div>
+</div>
 
 <style>
   .todos {
