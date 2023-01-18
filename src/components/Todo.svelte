@@ -5,24 +5,63 @@
 
   export let todo: TodoType;
   export let toggleTodo: (id: string) => void;
+  export let editTodo: (id: string, newText: string) => void;
   export let deleteTodo: (id: string) => void;
+
+  let editing = false;
+
+  function toggleEditing() {
+    editing = !editing;
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement;
+
+    switch (event.key) {
+      case 'Enter':
+        target.blur();
+        break;
+      case 'Escape':
+        target.blur();
+        break;
+    }
+  }
+
+  function handleBlur(event: FocusEvent) {
+    const target = event.target as HTMLInputElement;
+    const newText = target.value;
+
+    editTodo(todo.id, newText);
+    editing = false;
+  }
 </script>
 
 <li class="todo" class:todo--completed={todo.completed}>
-  <input
-    type="checkbox"
-    checked={todo.completed}
-    on:change={() => toggleTodo(todo.id)}
-  />
-  <span class="todo-text">{todo.text}</span>
-  <button
-    type="button"
-    aria-label="Delete todo"
-    class="delete-btn"
-    on:click={() => deleteTodo(todo.id)}
-  >
-    x
-  </button>
+  {#if !editing}
+    <input
+      type="checkbox"
+      checked={todo.completed}
+      on:change={() => toggleTodo(todo.id)}
+    />
+    <span class="todo-text" on:dblclick={toggleEditing}>{todo.text}</span>
+    <button
+      type="button"
+      aria-label="Delete todo"
+      class="delete-btn"
+      on:click={() => deleteTodo(todo.id)}
+    >
+      x
+    </button>
+  {:else}
+    <!-- svelte-ignore a11y-autofocus -->
+    <input
+      type="text"
+      value={todo.text}
+      on:keydown={handleKeydown}
+      on:blur={handleBlur}
+      autofocus
+    />
+  {/if}
 </li>
 
 <style>

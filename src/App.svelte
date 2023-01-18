@@ -46,6 +46,11 @@
     });
   }
 
+  function editTodo(id: string, newText: string) {
+    const todoIdx = todos.findIndex((todo) => todo.id === id);
+    todos[todoIdx].text = newText;
+  }
+
   function deleteTodo(id: string) {
     todos = todos.filter((todo) => todo.id !== id);
   }
@@ -63,7 +68,7 @@
 
 <ul class="todos">
   {#each todos as todo (todo.id)}
-    <Todo {todo} {toggleTodo} {deleteTodo} />
+    <Todo {todo} {toggleTodo} {editTodo} {deleteTodo} />
   {/each}
 </ul>
 
