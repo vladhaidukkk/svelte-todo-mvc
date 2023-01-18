@@ -1,10 +1,12 @@
 <svelte:options immutable />
 
 <script lang="ts">
+  import { slide } from 'svelte/transition';
   import type { TodoType } from '$root/types';
   import { todos } from '$root/store';
 
   export let todo: TodoType;
+  export let slideIn: boolean;
 
   let editing = false;
 
@@ -34,7 +36,11 @@
   }
 </script>
 
-<li class="todo" class:todo--completed={todo.completed}>
+<li
+  class="todo"
+  class:todo--completed={todo.completed}
+  in:slide={{ duration: slideIn ? 250 : 0 }}
+>
   {#if !editing}
     <input
       type="checkbox"

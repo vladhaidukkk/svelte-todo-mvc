@@ -1,13 +1,18 @@
 <script lang="ts">
   import { TodoFiltersEnum } from '$root/types';
   import { capitalize } from '$root/utils';
+  import { tick } from 'svelte';
 
   export let activeFilter: TodoFiltersEnum;
+  export let setFiltering: (value: boolean) => void;
 
   const filters = Object.values(TodoFiltersEnum);
 
-  function selectFilter(filter: TodoFiltersEnum) {
+  async function selectFilter(filter: TodoFiltersEnum) {
+    setFiltering(true);
     activeFilter = filter;
+    await tick();
+    setFiltering(false);
   }
 </script>
 

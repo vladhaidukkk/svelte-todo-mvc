@@ -10,10 +10,15 @@
   import { todos } from '$root/store';
   import { TodoFiltersEnum } from './types';
 
+  let filtering = false;
   let activeFilter: TodoFiltersEnum = TodoFiltersEnum.all;
 
   $: todosAmount = $todos.length;
   $: filteredTodos = filterTodos($todos, activeFilter);
+
+  function setFiltering(value: boolean) {
+    filtering = value;
+  }
 </script>
 
 <main class="wrapper">
@@ -22,13 +27,13 @@
   {#if todosAmount > 0}
     <ul class="todos">
       {#each filteredTodos as todo (todo.id)}
-        <Todo {todo} />
+        <Todo {todo} slideIn={!filtering} />
       {/each}
     </ul>
 
     <div class="actions">
       <TodosLeft />
-      <TodoFilters bind:activeFilter />
+      <TodoFilters bind:activeFilter {setFiltering} />
       <ClearTodos />
     </div>
   {/if}
