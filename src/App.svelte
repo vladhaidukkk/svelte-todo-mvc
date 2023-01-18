@@ -35,6 +35,10 @@
       newTodoText = '';
     }
   }
+
+  function deleteTodo(id: string) {
+    todos = todos.filter((todo) => todo.id !== id);
+  }
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
@@ -47,8 +51,41 @@
   />
 </form>
 
-<ul>
+<ul class="todos">
   {#each todos as todo (todo.id)}
-    <li>{todo.text}</li>
+    <li class="todo">
+      <span>{todo.text}</span>
+      <button
+        type="button"
+        aria-label="Delete todo"
+        class="delete-btn"
+        on:click={() => deleteTodo(todo.id)}>x</button
+      >
+    </li>
   {/each}
 </ul>
+
+<style>
+  .todos {
+    width: 300px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid;
+  }
+
+  .delete-btn {
+    visibility: hidden;
+    cursor: pointer;
+  }
+
+  .todo:hover .delete-btn {
+    visibility: visible;
+  }
+</style>
