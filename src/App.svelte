@@ -5,29 +5,18 @@
 
   const filters = Object.values(TodoFilters);
 
-  let todos: TodoType[] = [
-    {
-      id: crypto.randomUUID(),
-      text: 'Todo 1',
-      completed: false,
-    },
-    {
-      id: crypto.randomUUID(),
-      text: 'Todo 2',
-      completed: true,
-    },
-    {
-      id: crypto.randomUUID(),
-      text: 'Todo 3',
-      completed: false,
-    },
-  ];
+  let todos: TodoType[] = JSON.parse(localStorage.getItem('todos') ?? '[]');
   let newTodoText = '';
   let selectedFilter: TodoFilters = TodoFilters.all;
 
   $: filteredTodos = filterTodos(todos, selectedFilter);
+  $: todosAmount = todos.length;
   $: completedTodos = todos.filter((todo) => todo.completed).length;
   $: uncompletedTodos = todos.filter((todo) => !todo.completed).length;
+
+  $: {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
 
   function createTodo(text: string) {
     const newTodo: TodoType = {
@@ -81,11 +70,13 @@
 
 <main class="wrapper">
   <form on:submit|preventDefault={handleSubmit}>
-    <input
-      type="checkbox"
-      checked={uncompletedTodos === 0}
-      on:click={toggleCompleted}
-    />
+    {#if todosAmount > 0}
+      <input
+        type="checkbox"
+        checked={uncompletedTodos === 0}
+        on:click={toggleCompleted}
+      />
+    {/if}
     <!-- svelte-ignore a11y-autofocus -->
     <input
       type="text"
@@ -95,38 +86,40 @@
     />
   </form>
 
-  <ul class="todos">
-    {#each filteredTodos as todo (todo.id)}
-      <Todo {todo} {toggleTodo} {editTodo} {deleteTodo} />
-    {/each}
-  </ul>
-
-  <div class="actions">
-    <div>
-      {uncompletedTodos}
-      {uncompletedTodos === 1 ? 'item' : 'items'} left
-    </div>
-    <div class="filters">
-      {#each filters as filter}
-        <button
-          type="button"
-          class="filter"
-          class:filter--active={selectedFilter === filter}
-          on:click={() => selectFilter(filter)}
-        >
-          {capitalize(filter)}
-        </button>
+  {#if todosAmount > 0}
+    <ul class="todos">
+      {#each filteredTodos as todo (todo.id)}
+        <Todo {todo} {toggleTodo} {editTodo} {deleteTodo} />
       {/each}
+    </ul>
+
+    <div class="actions">
+      <div>
+        {uncompletedTodos}
+        {uncompletedTodos === 1 ? 'item' : 'items'} left
+      </div>
+      <div class="filters">
+        {#each filters as filter}
+          <button
+            type="button"
+            class="filter"
+            class:filter--active={selectedFilter === filter}
+            on:click={() => selectFilter(filter)}
+          >
+            {capitalize(filter)}
+          </button>
+        {/each}
+      </div>
+      <button
+        type="button"
+        class="clear-btn"
+        class:clear-btn--hidden={completedTodos === 0}
+        on:click={clearCompleted}
+      >
+        Clear completed
+      </button>
     </div>
-    <button
-      type="button"
-      class="clear-btn"
-      class:clear-btn--hidden={completedTodos === 0}
-      on:click={clearCompleted}
-    >
-      Clear completed
-    </button>
-  </div>
+  {/if}
 </main>
 
 <style>
