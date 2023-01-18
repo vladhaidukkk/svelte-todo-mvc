@@ -2,11 +2,9 @@
 
 <script lang="ts">
   import type { TodoType } from '$root/types';
+  import { todos } from '$root/store';
 
   export let todo: TodoType;
-  export let toggleTodo: (id: string) => void;
-  export let editTodo: (id: string, newText: string) => void;
-  export let deleteTodo: (id: string) => void;
 
   let editing = false;
 
@@ -31,7 +29,7 @@
     const target = event.target as HTMLInputElement;
     const newText = target.value;
 
-    editTodo(todo.id, newText);
+    todos.updateText(todo.id, newText);
     editing = false;
   }
 </script>
@@ -41,14 +39,14 @@
     <input
       type="checkbox"
       checked={todo.completed}
-      on:change={() => toggleTodo(todo.id)}
+      on:change={() => todos.toggleCompleted(todo.id)}
     />
     <span class="todo-text" on:dblclick={toggleEditing}>{todo.text}</span>
     <button
       type="button"
       aria-label="Delete todo"
       class="delete-btn"
-      on:click={() => deleteTodo(todo.id)}
+      on:click={() => todos.remove(todo.id)}
     >
       x
     </button>

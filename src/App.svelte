@@ -1,66 +1,30 @@
 <script lang="ts">
-  import { TodoFilters, type TodoType } from '$root/types';
+  import { TodoFilters } from '$root/types';
   import { Todo } from '$root/components';
   import { filterTodos, capitalize } from '$root/utils';
+  import { todos } from '$root/store';
 
   const filters = Object.values(TodoFilters);
 
-  let todos: TodoType[] = JSON.parse(localStorage.getItem('todos') ?? '[]');
   let newTodoText = '';
   let selectedFilter: TodoFilters = TodoFilters.all;
 
-  $: filteredTodos = filterTodos(todos, selectedFilter);
-  $: todosAmount = todos.length;
-  $: completedTodos = todos.filter((todo) => todo.completed).length;
-  $: uncompletedTodos = todos.filter((todo) => !todo.completed).length;
-
-  $: {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }
-
-  function createTodo(text: string) {
-    const newTodo: TodoType = {
-      id: crypto.randomUUID(),
-      text,
-      completed: false,
-    };
-    todos = [...todos, newTodo];
-  }
+  $: filteredTodos = filterTodos($todos, selectedFilter);
+  $: todosAmount = $todos.length;
+  $: completedTodos = $todos.filter((todo) => todo.completed).length;
+  $: uncompletedTodos = $todos.filter((todo) => !todo.completed).length;
 
   function handleSubmit() {
     if (newTodoText) {
-      createTodo(newTodoText);
+      todos.create(newTodoText);
       newTodoText = '';
     }
-  }
-
-  function toggleTodo(id: string) {
-    todos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return todo;
-    });
-  }
-
-  function editTodo(id: string, newText: string) {
-    const todoIdx = todos.findIndex((todo) => todo.id === id);
-    todos[todoIdx].text = newText;
-  }
-
-  function deleteTodo(id: string) {
-    todos = todos.filter((todo) => todo.id !== id);
   }
 
   function toggleCompleted(event: MouseEvent) {
     const target = event.target as HTMLInputElement;
     const checked = target.checked;
-
-    todos = todos.map((todo) => ({ ...todo, completed: checked }));
-  }
-
-  function clearCompleted() {
-    todos = todos.filter((todo) => !todo.completed);
+    todos.updateAllCompleted(checked);
   }
 
   function selectFilter(filter: TodoFilters) {
@@ -89,7 +53,7 @@
   {#if todosAmount > 0}
     <ul class="todos">
       {#each filteredTodos as todo (todo.id)}
-        <Todo {todo} {toggleTodo} {editTodo} {deleteTodo} />
+        <Todo {todo} />
       {/each}
     </ul>
 
@@ -114,7 +78,7 @@
         type="button"
         class="clear-btn"
         class:clear-btn--hidden={completedTodos === 0}
-        on:click={clearCompleted}
+        on:click={todos.removeCompleted}
       >
         Clear completed
       </button>
