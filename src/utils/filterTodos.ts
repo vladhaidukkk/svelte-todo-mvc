@@ -1,13 +1,13 @@
-import { TodoFilters } from '$root/types';
+import { TodoFiltersEnum } from '$root/types';
 import type { TodoType } from '$root/types';
 
-export function filterTodos(todos: TodoType[], filter: TodoFilters) {
+export function filterTodos(todos: TodoType[], filter: TodoFiltersEnum) {
   switch (filter) {
-    case TodoFilters.all:
+    case TodoFiltersEnum.all:
       return todos;
-    case TodoFilters.active:
+    case TodoFiltersEnum.active:
       return todos.filter((todo) => !todo.completed);
-    case TodoFilters.completed:
+    case TodoFiltersEnum.completed:
       return todos.filter((todo) => todo.completed);
   }
 }

@@ -4,7 +4,7 @@ export type TodoType = {
   completed: boolean;
 };
 
-export enum TodoFilters {
+export enum TodoFiltersEnum {
   all = 'all',
   active = 'active',
   completed = 'completed',
