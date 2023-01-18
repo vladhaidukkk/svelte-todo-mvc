@@ -21,6 +21,7 @@
   ];
   let newTodoText = '';
 
+  $: completedTodos = todos.filter((todo) => todo.completed).length;
   $: uncompletedTodos = todos.filter((todo) => !todo.completed).length;
 
   function createTodo(text: string) {
@@ -56,32 +57,67 @@
   function deleteTodo(id: string) {
     todos = todos.filter((todo) => todo.id !== id);
   }
+
+  function clearCompleted() {
+    todos = todos.filter((todo) => !todo.completed);
+  }
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
-  <!-- svelte-ignore a11y-autofocus -->
-  <input
-    type="text"
-    bind:value={newTodoText}
-    placeholder="What needs to be done?"
-    autofocus
-  />
-</form>
+<main class="wrapper">
+  <form on:submit|preventDefault={handleSubmit}>
+    <!-- svelte-ignore a11y-autofocus -->
+    <input
+      type="text"
+      bind:value={newTodoText}
+      placeholder="What needs to be done?"
+      autofocus
+    />
+  </form>
 
-<ul class="todos">
-  {#each todos as todo (todo.id)}
-    <Todo {todo} {toggleTodo} {editTodo} {deleteTodo} />
-  {/each}
-</ul>
+  <ul class="todos">
+    {#each todos as todo (todo.id)}
+      <Todo {todo} {toggleTodo} {editTodo} {deleteTodo} />
+    {/each}
+  </ul>
 
-<div>
-  <div>{uncompletedTodos} {uncompletedTodos === 1 ? 'item' : 'items'} left</div>
-</div>
+  <div class="actions">
+    <div>
+      {uncompletedTodos}
+      {uncompletedTodos === 1 ? 'item' : 'items'} left
+    </div>
+    <button
+      type="button"
+      class="clear-btn"
+      class:clear-btn--hidden={completedTodos === 0}
+      on:click={clearCompleted}
+    >
+      Clear completed
+    </button>
+  </div>
+</main>
 
 <style>
-  .todos {
+  .wrapper {
     width: 300px;
+  }
+
+  .todos {
     padding: 0;
     list-style: none;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .clear-btn {
+    visibility: visible;
+    cursor: pointer;
+  }
+
+  .clear-btn--hidden {
+    visibility: hidden;
   }
 </style>
