@@ -21,38 +21,20 @@
   }
 </script>
 
-<main class="wrapper">
+<main class="w-[500px] p-4">
   <CreateTodo />
 
   {#if todosAmount > 0}
-    <ul class="todos">
+    <ul>
       {#each filteredTodos as todo (todo.id)}
         <Todo {todo} slideIn={!filtering} />
       {/each}
     </ul>
 
-    <div class="actions">
+    <div class="flex items-center justify-between gap-2 py-2">
       <TodosLeft />
       <TodoFilters bind:activeFilter {setFiltering} />
       <ClearTodos />
     </div>
   {/if}
 </main>
-
-<style>
-  .wrapper {
-    width: 400px;
-  }
-
-  .todos {
-    padding: 0;
-    list-style: none;
-  }
-
-  .actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-  }
-</style>

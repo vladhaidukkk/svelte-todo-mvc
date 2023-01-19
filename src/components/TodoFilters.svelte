@@ -16,33 +16,15 @@
   }
 </script>
 
-<div class="filters">
+<div class="flex items-center gap-2">
   {#each filters as filter}
     <button
       type="button"
-      class="filter"
-      class:filter--active={activeFilter === filter}
+      class="rounded border px-2"
+      class:border-blue-600={activeFilter === filter}
       on:click={() => selectFilter(filter)}
     >
       {capitalize(filter)}
     </button>
   {/each}
 </div>
-
-<style>
-  .filters {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .filter {
-    border: 1px solid black;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-
-  .filter--active {
-    border-color: purple;
-  }
-</style>

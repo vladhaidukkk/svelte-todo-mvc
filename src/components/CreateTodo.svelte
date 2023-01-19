@@ -20,7 +20,10 @@
   }
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
+<form
+  class="flex items-center gap-2 border-b py-2"
+  on:submit|preventDefault={handleSubmit}
+>
   {#if todosAmount > 0}
     <input
       type="checkbox"
@@ -33,6 +36,7 @@
     type="text"
     bind:value={newTodoText}
     placeholder="What needs to be done?"
+    class="flex-1"
     autofocus
   />
 </form>
