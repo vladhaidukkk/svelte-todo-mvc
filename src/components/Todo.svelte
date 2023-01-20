@@ -50,10 +50,10 @@
     <button
       type="button"
       aria-label="Delete todo"
-      class="invisible group-hover:visible"
+      class="invisible flex items-center justify-center text-red-600 opacity-0 transition-all hover:scale-110 group-hover:visible group-hover:opacity-100"
       on:click={() => todos.remove(todo.id)}
     >
-      x
+      <span class="icon-[carbon--close] h-5 w-5" />
     </button>
   {:else}
     <!-- svelte-ignore a11y-autofocus -->

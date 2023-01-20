@@ -15,6 +15,8 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
+    "@iconify-json/carbon": "^1.1.13",
+    "@iconify/tailwind": "^0.1.0",
     "@sveltejs/vite-plugin-svelte": "^2.0.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tsconfig/svelte": "^3.0.0",
