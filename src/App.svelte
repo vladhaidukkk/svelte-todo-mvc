@@ -26,7 +26,7 @@
     <CreateTodo />
 
     {#if todosAmount > 0}
-      <ul class="grid auto-rows-[56px]">
+      <ul class="grid auto-rows-[minmax(56px,max-content)]">
         {#each filteredTodos as todo (todo.id)}
           <Todo {todo} />
         {/each}

@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.4.2
   '@commitlint/config-conventional': ^17.4.2
-  '@iconify-json/carbon': ^1.1.13
+  '@iconify-json/ph': ^1.1.3
   '@iconify/tailwind': ^0.1.0
   '@sveltejs/vite-plugin-svelte': ^2.0.0
   '@tailwindcss/forms': ^0.5.3
@@ -31,7 +31,7 @@ specifiers:
 devDependencies:
   '@commitlint/cli': 17.4.2
   '@commitlint/config-conventional': 17.4.2
-  '@iconify-json/carbon': 1.1.13
+  '@iconify-json/ph': 1.1.3
   '@iconify/tailwind': 0.1.0
   '@sveltejs/vite-plugin-svelte': 2.0.2_svelte@3.55.1+vite@4.0.4
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.4
@@ -489,8 +489,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iconify-json/carbon/1.1.13:
-    resolution: {integrity: sha512-qPR7n3JkCqIrvjxnyUPIejhn0wrZJsLmija59U/zwFm5SMOITCfLx+Jp6VecnL0Sm76zRE5Kv54VzolQljB97A==}
+  /@iconify-json/ph/1.1.3:
+    resolution: {integrity: sha512-QSzWMGF8GiBPW89RpQ3bEwEjuRWTv/xxskStUpK7tsXlz3qoPTEM5CQxDUpzUmc9luAWViqD/shIUiuNhUeolw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
