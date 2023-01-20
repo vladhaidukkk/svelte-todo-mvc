@@ -42,8 +42,8 @@
       on:change={() => todos.toggleCompleted(todo.id)}
     />
     <span
-      class="flex-1 break-all pl-2.5 text-xl font-thin text-gray-900"
-      class:opacity-25={todo.completed}
+      class="flex-1 break-all pl-2.5 text-xl font-thin text-gray-900 decoration-1"
+      class:opacity-20={todo.completed}
       class:line-through={todo.completed}
       on:dblclick={toggleEditing}>{todo.text}</span
     >

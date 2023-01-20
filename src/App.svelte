@@ -17,7 +17,7 @@
 </script>
 
 <main class="flex min-h-screen flex-col items-center gap-5 bg-gray-100 py-20">
-  <h1 class="text-8xl font-thin text-gray-800">todos</h1>
+  <h1 class="text-8xl font-thin text-blue-500">todos</h1>
 
   <section
     class="w-[550px] bg-white shadow-3xl"
