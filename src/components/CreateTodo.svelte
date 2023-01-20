@@ -22,7 +22,7 @@
 
 <form
   class="flex h-16 items-center gap-2.5 pl-2.5"
-  class:pl-[52px]={todosAmount === 0}
+  class:pl-13={todosAmount === 0}
   class:border-b={todosAmount > 0}
   on:submit|preventDefault={handleSubmit}
 >

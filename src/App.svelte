@@ -16,7 +16,9 @@
   $: filteredTodos = filterTodos($todos, activeFilter);
 </script>
 
-<main class="flex min-h-screen flex-col items-center gap-5 bg-gray-100 py-20">
+<svelte:body class="bg-gray-100" />
+
+<main class="flex min-h-screen flex-col items-center gap-5 py-20">
   <h1 class="text-8xl font-thin text-blue-500">todos</h1>
 
   <section
@@ -26,14 +28,14 @@
     <CreateTodo />
 
     {#if todosAmount > 0}
-      <ul class="grid auto-rows-[minmax(56px,max-content)]">
+      <ul class="grid auto-rows-[minmax(56px,_max-content)]">
         {#each filteredTodos as todo (todo.id)}
           <Todo {todo} />
         {/each}
       </ul>
 
       <div
-        class="flex h-12 items-center justify-between gap-2.5 px-3.5 text-sm"
+        class="flex h-12 items-center justify-between gap-2.5 px-5.5 text-sm font-thin text-gray-900"
       >
         <TodosLeft />
         <TodoFilters bind:activeFilter />

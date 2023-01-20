@@ -11,7 +11,7 @@
   }
 </script>
 
-<div class="flex items-center gap-2.5 font-thin text-gray-900">
+<div class="flex items-center gap-2.5">
   {#each filters as filter}
     <button
       type="button"
