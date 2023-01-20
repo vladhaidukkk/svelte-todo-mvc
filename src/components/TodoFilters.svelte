@@ -16,11 +16,11 @@
   }
 </script>
 
-<div class="flex items-center gap-2">
+<div class="flex items-center gap-2.5">
   {#each filters as filter}
     <button
       type="button"
-      class="rounded border px-2"
+      class="rounded border px-2.5"
       class:border-blue-600={activeFilter === filter}
       on:click={() => selectFilter(filter)}
     >

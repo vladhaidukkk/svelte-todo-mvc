@@ -21,7 +21,8 @@
 </script>
 
 <form
-  class="flex items-center gap-2 border-b py-2"
+  class="flex h-16 items-center gap-2.5 pl-2.5"
+  class:border-b={todosAmount > 0}
   on:submit|preventDefault={handleSubmit}
 >
   {#if todosAmount > 0}
@@ -36,7 +37,7 @@
     type="text"
     bind:value={newTodoText}
     placeholder="What needs to be done?"
-    class="flex-1"
+    class="h-full flex-1 border-none focus:ring-0"
     autofocus
   />
 </form>

@@ -37,7 +37,7 @@
 </script>
 
 <li
-  class="group flex items-center gap-2 border-b py-2"
+  class="group flex items-center gap-2.5 border-b pl-2.5 pr-5"
   in:slide={{ duration: slideIn ? 250 : 0 }}
 >
   {#if !editing}
@@ -65,6 +65,7 @@
     <input
       type="text"
       value={todo.text}
+      class="h-full w-full"
       on:keydown={handleKeydown}
       on:blur={handleBlur}
       autofocus

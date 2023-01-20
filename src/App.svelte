@@ -21,20 +21,45 @@
   }
 </script>
 
-<main class="w-[500px] p-4">
-  <CreateTodo />
+<main
+  class="flex h-screen min-h-screen flex-col items-center gap-5 bg-gray-100 py-20"
+>
+  <h1 class="text-8xl font-thin text-gray-800">todos</h1>
 
-  {#if todosAmount > 0}
-    <ul>
-      {#each filteredTodos as todo (todo.id)}
-        <Todo {todo} slideIn={!filtering} />
-      {/each}
-    </ul>
+  <section
+    class="w-[550px] bg-white shadow-3xl"
+    class:shadow-pages={todosAmount > 0}
+  >
+    <CreateTodo />
 
-    <div class="flex items-center justify-between gap-2 py-2">
-      <TodosLeft />
-      <TodoFilters bind:activeFilter {setFiltering} />
-      <ClearTodos />
-    </div>
-  {/if}
+    {#if todosAmount > 0}
+      <ul class="grid auto-rows-[56px]">
+        {#each filteredTodos as todo (todo.id)}
+          <Todo {todo} slideIn={!filtering} />
+        {/each}
+      </ul>
+
+      <div class="flex h-12 items-center justify-between gap-2.5 px-2.5">
+        <TodosLeft />
+        <TodoFilters bind:activeFilter {setFiltering} />
+        <ClearTodos />
+      </div>
+    {/if}
+  </section>
 </main>
+
+<style>
+  .shadow-pages {
+    position: relative;
+  }
+
+  .shadow-pages::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 20%), 0 8px 0 -3px #f6f6f6,
+      0 9px 1px -3px rgb(0 0 0 / 20%), 0 16px 0 -6px #f6f6f6,
+      0 17px 2px -6px rgb(0 0 0 / 20%);
+    pointer-events: none;
+  }
+</style>
