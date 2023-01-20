@@ -10,20 +10,13 @@
   import { todos } from '$root/store';
   import { TodoFiltersEnum } from './types';
 
-  let filtering = false;
   let activeFilter: TodoFiltersEnum = TodoFiltersEnum.all;
 
   $: todosAmount = $todos.length;
   $: filteredTodos = filterTodos($todos, activeFilter);
-
-  function setFiltering(value: boolean) {
-    filtering = value;
-  }
 </script>
 
-<main
-  class="flex h-screen min-h-screen flex-col items-center gap-5 bg-gray-100 py-20"
->
+<main class="flex min-h-screen flex-col items-center gap-5 bg-gray-100 py-20">
   <h1 class="text-8xl font-thin text-gray-800">todos</h1>
 
   <section
@@ -35,13 +28,15 @@
     {#if todosAmount > 0}
       <ul class="grid auto-rows-[56px]">
         {#each filteredTodos as todo (todo.id)}
-          <Todo {todo} slideIn={!filtering} />
+          <Todo {todo} />
         {/each}
       </ul>
 
-      <div class="flex h-12 items-center justify-between gap-2.5 px-2.5">
+      <div
+        class="flex h-12 items-center justify-between gap-2.5 px-3.5 text-sm"
+      >
         <TodosLeft />
-        <TodoFilters bind:activeFilter {setFiltering} />
+        <TodoFilters bind:activeFilter />
         <ClearTodos />
       </div>
     {/if}

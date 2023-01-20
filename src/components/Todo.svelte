@@ -1,12 +1,10 @@
 <svelte:options immutable />
 
 <script lang="ts">
-  import { slide } from 'svelte/transition';
   import type { TodoType } from '$root/types';
   import { todos } from '$root/store';
 
   export let todo: TodoType;
-  export let slideIn: boolean;
 
   let editing = false;
 
@@ -36,10 +34,7 @@
   }
 </script>
 
-<li
-  class="group flex items-center gap-2.5 border-b pl-2.5 pr-5"
-  in:slide={{ duration: slideIn ? 250 : 0 }}
->
+<li class="group flex items-center gap-2.5 border-b pl-2.5 pr-5">
   {#if !editing}
     <input
       type="checkbox"
@@ -47,8 +42,8 @@
       on:change={() => todos.toggleCompleted(todo.id)}
     />
     <span
-      class="flex-1"
-      class:opacity-50={todo.completed}
+      class="flex-1 break-all pl-2.5 text-xl font-thin text-gray-900"
+      class:opacity-25={todo.completed}
       class:line-through={todo.completed}
       on:dblclick={toggleEditing}>{todo.text}</span
     >
@@ -65,7 +60,7 @@
     <input
       type="text"
       value={todo.text}
-      class="h-full w-full"
+      class="ml-[25px] -mr-5 h-full w-full px-2.5 text-xl font-thin text-gray-900"
       on:keydown={handleKeydown}
       on:blur={handleBlur}
       autofocus

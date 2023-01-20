@@ -1,27 +1,22 @@
 <script lang="ts">
   import { TodoFiltersEnum } from '$root/types';
   import { capitalize } from '$root/utils';
-  import { tick } from 'svelte';
 
   export let activeFilter: TodoFiltersEnum;
-  export let setFiltering: (value: boolean) => void;
 
   const filters = Object.values(TodoFiltersEnum);
 
   async function selectFilter(filter: TodoFiltersEnum) {
-    setFiltering(true);
     activeFilter = filter;
-    await tick();
-    setFiltering(false);
   }
 </script>
 
-<div class="flex items-center gap-2.5">
+<div class="flex items-center gap-2.5 font-thin text-gray-900">
   {#each filters as filter}
     <button
       type="button"
-      class="rounded border px-2.5"
-      class:border-blue-600={activeFilter === filter}
+      class="rounded-sm border border-transparent px-1.5 transition-colors hover:border-blue-600"
+      class:!border-blue-600={activeFilter === filter}
       on:click={() => selectFilter(filter)}
     >
       {capitalize(filter)}

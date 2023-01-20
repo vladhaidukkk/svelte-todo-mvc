@@ -6,6 +6,7 @@
 
 <button
   type="button"
+  class="font-thin text-gray-900 decoration-gray-900 underline-offset-2 hover:underline"
   class:invisible={completedTodos === 0}
   on:click={todos.removeCompleted}
 >
