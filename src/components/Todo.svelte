@@ -72,7 +72,7 @@
     <input
       type="text"
       value={todo.text}
-      class="ml-[31px] -mr-5 h-full w-full px-2.5 text-xl font-thin text-gray-900"
+      class="-mr-5 ml-8 h-full w-full border-none px-2.5 text-xl font-thin text-gray-900 focus:ring-inset focus:ring-blue-600"
       on:keydown={handleKeydown}
       on:blur={handleBlur}
       autofocus

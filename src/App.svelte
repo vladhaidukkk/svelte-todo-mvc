@@ -16,10 +16,8 @@
   $: filteredTodos = filterTodos($todos, activeFilter);
 </script>
 
-<svelte:body class="bg-gray-100" />
-
 <main class="flex min-h-screen flex-col items-center gap-5 py-20">
-  <h1 class="text-8xl font-thin text-blue-500">todos</h1>
+  <h1 class="text-8xl font-thin text-blue-500 dark:text-blue-300">todos</h1>
 
   <section
     class="w-[550px] bg-white shadow-3xl"
