@@ -46,7 +46,7 @@
     type="text"
     bind:value={newTodoText}
     placeholder="What needs to be done?"
-    class="h-full flex-1 border-none pr-2.5 pl-0 text-2xl font-thin text-gray-900 placeholder:italic placeholder:text-gray-200 focus:ring-0"
+    class="h-full flex-1 border-none pr-2.5 pl-0 text-xl font-thin text-gray-900 placeholder:italic placeholder:text-gray-200 focus:ring-0 sm:text-2xl"
     autofocus
   />
 </form>

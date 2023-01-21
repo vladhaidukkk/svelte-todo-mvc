@@ -52,7 +52,7 @@
       />
     </label>
     <span
-      class="flex-1 break-all py-2 text-xl font-thin text-gray-900 decoration-1"
+      class="flex-1 break-all py-2 text-lg font-thin text-gray-900 decoration-1 sm:text-xl"
       class:opacity-20={todo.completed}
       class:line-through={todo.completed}
       on:dblclick={toggleEditing}

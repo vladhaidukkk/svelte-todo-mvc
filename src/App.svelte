@@ -16,11 +16,13 @@
   $: filteredTodos = filterTodos($todos, activeFilter);
 </script>
 
-<main class="flex min-h-screen flex-col items-center gap-5 py-20">
-  <h1 class="text-8xl font-thin text-blue-500 dark:text-blue-300">todos</h1>
+<main class="flex min-h-screen flex-col items-center gap-5 py-20 px-5">
+  <h1 class="text-7xl font-thin text-blue-500 dark:text-blue-300 sm:text-8xl">
+    todos
+  </h1>
 
   <section
-    class="w-[550px] bg-white shadow-3xl"
+    class="w-full max-w-[550px] bg-white shadow-3xl"
     class:shadow-pages={todosAmount > 0}
   >
     <CreateTodo />
@@ -33,7 +35,7 @@
       </ul>
 
       <div
-        class="flex h-12 items-center justify-between gap-2.5 px-5.5 text-sm font-thin text-gray-900"
+        class="grid h-12 grid-cols-[1fr_2fr_1fr] items-center justify-items-center gap-2.5 px-2.5 text-xs font-thin text-gray-900 sm:px-5.5 sm:text-sm"
       >
         <TodosLeft />
         <TodoFilters bind:activeFilter />

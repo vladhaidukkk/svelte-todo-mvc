@@ -4,7 +4,7 @@
   $: uncompletedTodos = $todos.filter((todo) => !todo.completed).length;
 </script>
 
-<div>
+<div class="justify-self-start">
   {uncompletedTodos}
   {uncompletedTodos === 1 ? 'item' : 'items'} left
 </div>
